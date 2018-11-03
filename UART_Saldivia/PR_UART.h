@@ -20,11 +20,11 @@
 
 #include "Regs_LPC176x.h"
 #include "DR_tipos.h"
-#include "DR_UART0.h"   /*
+#include "DR_UART0.h"
 #include "DR_UART1.h"
 #include "DR_UART2.h"
 #include "DR_UART3.h"
-*/
+
 
 /***********************************************************************************************************************************
  *** DEFINES GLOBALES
@@ -46,7 +46,6 @@
 #define UART_INEXISTENTE            -5
 
 #define MAX_TRAMA_RECIBIDA          50
-
 
 /***********************************************************************************************************************************
  *** MACROS GLOBALES

@@ -11,7 +11,7 @@
  *** INCLUDES
  **********************************************************************************************************************************/
 
-#include "PR_string.h"
+#include <string.h>
 #include "PR_UART.h"
 
 /***********************************************************************************************************************************
@@ -62,9 +62,9 @@ void UART0_PushTx( uint8_t dato ){
     U0_Index_In_Tx ++;
     U0_Index_In_Tx %= U0_MAX_TX;
 
-    if (U0_TxEnCurso == 0) { // Si no había una TX en curso
-        U0_TxEnCurso = 1;	// pongo una TX en curso y
-        UART0_StartTx();     // fuerzo el inicio de la TX
+    if (U0_TxEnCurso == 0) {    // Si no había una TX en curso
+        U0_TxEnCurso = 1;       // pongo una TX en curso y
+        UART0_StartTx();        // fuerzo el inicio de la TX
     }
 }
 
@@ -242,9 +242,9 @@ void UART1_PushTx( uint8_t dato ){
     U1_Index_In_Tx ++;
     U1_Index_In_Tx %= U1_MAX_TX;
 
-    if (U1_TxEnCurso == 0) { // Si no había una TX en curso
-        U1_TxEnCurso = 1;	// pongo una TX en curso y
-        UART1_StartTx();     // fuerzo el inicio de la TX
+    if (U1_TxEnCurso == 0) {    // Si no había una TX en curso
+        U1_TxEnCurso = 1;   	// pongo una TX en curso y
+        UART1_StartTx();        // fuerzo el inicio de la TX
     }
 }
 
@@ -420,9 +420,9 @@ void UART2_PushTx( uint8_t dato ){
     U2_Index_In_Tx ++;
     U2_Index_In_Tx %= U2_MAX_TX;
 
-    if (U2_TxEnCurso == 0) { // Si no había una TX en curso
-        U2_TxEnCurso = 1;	// pongo una TX en curso y
-        UART2_StartTx();     // fuerzo el inicio de la TX
+    if (U2_TxEnCurso == 0) {    // Si no había una TX en curso
+        U2_TxEnCurso = 1;       // pongo una TX en curso y
+        UART2_StartTx();        // fuerzo el inicio de la TX
     }
 }
 
@@ -600,9 +600,9 @@ void UART3_PushTx( uint8_t dato ){
     U3_Index_In_Tx ++;
     U3_Index_In_Tx %= U3_MAX_TX;
 
-    if (U3_TxEnCurso == 0) { // Si no había una TX en curso
-        U3_TxEnCurso = 1;	// pongo una TX en curso y
-        UART3_StartTx();     // fuerzo el inicio de la TX
+    if (U3_TxEnCurso == 0) {    // Si no había una TX en curso
+        U3_TxEnCurso = 1;       // pongo una TX en curso y
+        UART3_StartTx();        // fuerzo el inicio de la TX
     }
 }
 

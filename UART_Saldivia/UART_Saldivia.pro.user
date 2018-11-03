@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.7.1, 2018-11-01T01:48:10. -->
+<!-- Written by QtCreator 4.7.1, 2018-11-03T01:15:58. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -246,8 +246,8 @@
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">UART_Saldivia</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/home/lsldv/UART_Saldivia/UART_Saldivia.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">UART_Saldivia2</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/home/lsldv/Informática_II/Biblioteca_Saldivia_LPC176x/UART_Saldivia/UART_Saldivia.pro</value>
     <value type="bool" key="QmakeProjectManager.QmakeRunConfiguration.UseLibrarySearchPath">true</value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.CommandLineArguments"></value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.ProFile">UART_Saldivia.pro</value>

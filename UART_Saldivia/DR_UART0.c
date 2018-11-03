@@ -17,10 +17,10 @@
  *** DEFINES PRIVADOS AL MODULO
  **********************************************************************************************************************************/
 
-#define MODEM           0
-#define TX              1
-#define RX              2
-#define ERRORES         3
+#define MODEM               0
+#define TX                  1
+#define RX                  2
+#define ERRORES             3
 
 #define U0_BORRAR_FLAG_RX
 #define U0_BORRAR_FLAG_TX
@@ -29,10 +29,10 @@
 #define U0_REGISTRO_TX		U0THR
 #define U0_LSR				U0LSR
 
-#define OE				1
-#define PE				2
-#define FE				4
-#define BI				8
+#define OE                  1
+#define PE                  2
+#define FE                  4
+#define BI                  8
 
 #define DATA_BITS_5         5
 #define DATA_BITS_6         6
@@ -93,18 +93,17 @@ volatile uint8_t U0_TxEnCurso;   // Flag de TX en curso
  **********************************************************************************************************************************/
 
 void UART0_Init ( void ){
-	//1.- Registro PCONP - bit 3 en 1 habilita la UART0
-	PCONP |= ( (0x01)<<3 );
+    //1.- Registro PCONP - bit 3 en 1 energiza la UART0
+    PCONP |= ( 0x01 << 3 );
 
 	//2.- Registro PCLKSEL0 - bits 6 y 7 en 0 seleccionan que el clk de la UART0 sea 25MHz
-	PCLKSEL0 &= ~(0x03 << 6);
+    PCLKSEL0 &= ~( 0x03 << 6 );
 
 	//3.- Set-up: Largo de trama,Paridad, Stop, etc.
-	U0LCR |= ( (0x1)<<7 );		// Bit 7. DLAB == 1 para acceder a registros DLM y DLL
-	U0LCR |= ( (0x3)<<0 );		// Bit 0:1. Largo de trama. 11 es 8 bits
-	U0LCR &= ~( (0x1)<<2 );		// Bit 2. Stop bits. 0 es 1 bit
-	U0LCR &= ~( (0x1)<<3 );		// Bit 3. Parity enable. 0 es desactivada
-	U0LCR &= ~( (0x1)<<6 );		// Bit 6. Break Control. 0 es disabled
+    U0LCR |= ( 0x03 << 0 );         // Bit 0:1. Largo de trama. 11 es 8 bits
+    U0LCR &= ~( 0x01 << 2 );		// Bit 2. Stop bits. 0 es 1 bit
+    U0LCR &= ~( 0x01 << 3 );		// Bit 3. Parity enable. 0 es desactivada
+    U0LCR &= ~( 0x01 << 6 );		// Bit 6. Break Control. 0 es disabled
 
 	//4.- Configuración del BaudRate.
 
@@ -116,28 +115,30 @@ void UART0_Init ( void ){
 
 	// Setup para 115200 baudios
 
-	//DLL y DLM
-	U0DLM = 0;
-	U0DLL = 0xC; // DLL == 12
+    // DLL y DLM
+    U0LCR |= ( 0x01 << 7 );     // Bit 7. DLAB == 1 para acceder a registros DLM y DLL
 
-	*U0FDR = 0;
-	*U0FDR |= ( (0xF)<<4 );    // Bits 4:7 . MULVAL == 15
-	*U0FDR |= 0x02;	 		   // Bits 0:3 . DIVADDVAL == 2
+    U0DLM = 0;                  // DLM = 0
+    U0DLL = 12;                 // DLL = 12
+
+    U0FDR = 0;
+    U0FDR |= ( 0x0E << 4 );     // Bits 4:7 . MULVAL = 14
+    U0FDR |= 0x05;              // Bits 0:3 . DIVADDVAL = 5
 
 	//5.- Habilito las funciones especiales de los pines TX y RX
-	//TX1D : PIN ??	-> 	P0[2]
-	SetPINSEL(P0, 2, PINSEL_FUNC1);
-	//RX1D : PIN ??	-> 	P0[3]
-	SetPINSEL(P0, 3, PINSEL_FUNC1);
+    //TXD0 : PIN ??	-> 	P0[2]
+    SetPINSEL( P0, 2, PINSEL_FUNC1 );
+    //RXD0 : PIN ??	-> 	P0[3]
+    SetPINSEL( P0, 3, PINSEL_FUNC1 );
 
-	//6.- Registro U1LCR, pongo DLAB(bit7) en 0
-	U0LCR &= ~(0x01 << 7);
+    //6.- Registro U0LCR, pongo DLAB(bit7) en 0
+    U0LCR &= ~( 0x01 << 7 );
 
 	//7. Habilito las interrupciones de RX y TX en la UART0 (Registro U0IER)
 	U0IER = 0x03;
 
 	//8. Habilito la interrupción de la UART0 en el NVIC (Registro ISER0)
-	ISER0 |= (1<<5);
+    ISER0 |= ( 0x01 << 5 );
 }
 
 void UART0_Inicializar( uint8_t PCLK, uint8_t BaudRate, uint8_t Data_Bits, uint8_t Parity, uint8_t Stop_Bits ){
@@ -169,24 +170,23 @@ void UART0_Inicializar( uint8_t PCLK, uint8_t BaudRate, uint8_t Data_Bits, uint8
     }
 
     //3.- Set-up: Largo de trama, Paridad, Stop, etc.
-    U0LCR |= ( (0x1)<<7 );		// Bit 7. DLAB == 1 para acceder a registros DLM y DLL
 
-    switch( Data_Bits ){        // Bits 1:0
+    switch( Data_Bits ){        // Bits 1:0 Largo del dato
         case DATA_BITS_5:
             U0LCR |= ( 0x00 << 0 );
             break;
 
         case DATA_BITS_6:
-                U0LCR |= ( 0x01 << 0 );
-                break;
+            U0LCR |= ( 0x01 << 0 );
+            break;
 
         case DATA_BITS_7:
-                U0LCR |= ( 0x02 << 0 );
-                break;
+            U0LCR |= ( 0x02 << 0 );
+            break;
 
         case DATA_BITS_8:
-                U0LCR |= ( 0x03 << 0 );
-                break;
+            U0LCR |= ( 0x03 << 0 );
+            break;
 
         default:                // default => DATA_BITS_8
             U0LCR |= ( 0x03 << 0 );
@@ -253,7 +253,9 @@ void UART0_Inicializar( uint8_t PCLK, uint8_t BaudRate, uint8_t Data_Bits, uint8
 
     // Setup para BaudRate ( DLM, DLL, DivAddVall y MulVal ) según una tabla son Error % Máximo de 0.160247 %
 
-    switch ( BaudRate ) {
+    U0LCR |= ( 0x01 << 7 );		// Bit 7. DLAB = 1 para acceder a registros DLM y DLL
+
+    switch ( BaudRate ) {       // DLM, DLL, DivAddVal y MulVal tabulados
         case BAUD_RATE_600:
         /*
                                                             DLM     DLL     DAV     MULVAL
@@ -1160,12 +1162,12 @@ void UART0_Inicializar( uint8_t PCLK, uint8_t BaudRate, uint8_t Data_Bits, uint8
     }
 
     //5.- Habilito las funciones especiales de los pines TX y RX
-    //TX1D : PIN ??	-> 	P0[2]
-    SetPINSEL(P0, 2, PINSEL_FUNC1);
-    //RX1D : PIN ??	-> 	P0[3]
-    SetPINSEL(P0, 3, PINSEL_FUNC1);
+    //TXD0 : PIN ??	-> 	P0[2]
+    SetPINSEL( P0, 2, PINSEL_FUNC1 );
+    //RXD0 : PIN ??	-> 	P0[3]
+    SetPINSEL( P0, 3, PINSEL_FUNC1 );
 
-    //6.- Registro U0LCR, pongo DLAB(bit7) en 0
+    //6.- Bit 7. DLAB = 0 para acceder a registros RBR y THR
     U0LCR &= ~( 0x01 << 7 );
 
     //7. Habilito las interrupciones de RX y TX en la UART0 (Registro U0IER)
@@ -1193,7 +1195,7 @@ void UART0_IRQHandler ( void ){
         //  1   0	Rx
         //  1   1   Error
 
-        //THR EMPTY (Interrupción por TX)
+        // THR EMPTY (Interrupción por TX)
         if ( Interrupcion == TX ) {
             U0_BORRAR_FLAG_TX;
 

@@ -1,6 +1,6 @@
 /*******************************************************************************************************************************//**
  *
- * @file		DR_UART0.h
+ * @file		DR_UART3.h
  * @brief		Breve descripción del objetivo del Módulo
  * @date		28 de oct. de 2018
  * @author		Saldivia, Luciano
@@ -11,8 +11,8 @@
  *** MODULO
  **********************************************************************************************************************************/
 
-#ifndef DR_UART0_H_
-#define DR_UART0_H_
+#ifndef DR_UART3_H_
+#define DR_UART3_H_
 
 /***********************************************************************************************************************************
  *** INCLUDES GLOBALES
@@ -39,26 +39,27 @@
  *** VARIABLES GLOBALES
  **********************************************************************************************************************************/
 
-extern volatile uint8_t U0_Buf_RX[U0_MAX_RX];
-extern volatile uint8_t U0_Buf_TX[U0_MAX_TX];
+extern volatile uint8_t U3_Buf_RX[U3_MAX_RX];
+extern volatile uint8_t U3_Buf_TX[U3_MAX_TX];
 
-extern volatile uint8_t U0_Index_In_Rx = 0;
-extern volatile uint8_t U0_Index_Out_Rx = 0 ;
+extern volatile uint8_t U3_Index_In_Rx = 0;
+extern volatile uint8_t U3_Index_Out_Rx = 0 ;
 
-extern volatile uint8_t U0_Index_In_Tx = 0;
-extern volatile uint8_t U0_Index_Out_Tx = 0 ;
+extern volatile uint8_t U3_Index_In_Tx = 0;
+extern volatile uint8_t U3_Index_Out_Tx = 0 ;
 
-extern volatile uint8_t U0_TxEnCurso;
+extern volatile uint8_t U3_TxEnCurso;
 
 /***********************************************************************************************************************************
  *** PROTOTIPOS DE FUNCIONES GLOBALES
  **********************************************************************************************************************************/
 
-void UART0_Init( void );
-void UART0_Inicializar( uint8_t PCLK, uint8_t BaudRate, uint8_t Data_Bits, uint8_t Parity, uint8_t Stop_Bits );
+void UART3_Init( void );
+void UART3_Inicializar( uint8_t PCLK, uint8_t BaudRate, uint8_t Data_Bits, uint8_t Parity, uint8_t Stop_Bits );
 
-void UART0_StartTx( void );
-void UART0_PopTx( void );
-void UART0_PushRx( void );
+void UART3_StartTx( void );
+void UART3_PopTx( void );
+void UART3_PushRx( void );
 
-#endif // DR_UART0_H_
+#endif /* DR_UART3_H_ */
+
